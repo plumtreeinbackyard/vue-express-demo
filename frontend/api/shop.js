@@ -1,0 +1,44 @@
+/**
+ * Mocking client-server processing
+ */
+import axios from "axios";
+
+const GET_PRODUCTS_API_URL = `${window.location.protocol}//${window.location.host}/products`;
+const UPDATE_INVENTORY_API_URL = `${window.location.protocol}//${window.location.host}/updateinventory`;
+let products = [];
+
+export default {
+  getProducts(cb) {
+    // Get products from database
+    axios
+      .get(GET_PRODUCTS_API_URL)
+      .then(response => {
+        products = response.data;
+        cb(products);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // setTimeout(() => cb(products), 100);
+  },
+
+  buyProducts(products, cb, errorCb) {
+    setTimeout(() => {
+      // simulate random checkout failure.
+      // Math.random() > 0.5 || navigator.webdriver ? cb() : errorCb();
+      if (Math.random() > 0.5 || navigator.webdriver) {
+        cb();
+      } else {
+        errorCb();
+      }
+    }, 100);
+  },
+
+  // update inventory in database after successful checkout,
+  // cartProducts contains two properties: id and quantity.
+  updateInventoryInDB(cartProducts) {
+    axios.post(UPDATE_INVENTORY_API_URL, cartProducts).catch(error => {
+      console.log(error);
+    });
+  }
+};

@@ -1,10 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <div class="container">
+        <div class="row">
+          <div class="col-4 text-left logo">
+            <router-link to="/">Vue/Express Demo</router-link>
+          </div>
+          <div class="col-8 text-right menu-item">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/admin">Admin</router-link> |
+            <router-link to="/cart">Cart</router-link>
+          </div>
+        </div>
+      </div>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -28,5 +38,13 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+#nav .logo {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+#nav .menu-item {
+  font-size: 0.9em;
+  color: grey;
 }
 </style>
