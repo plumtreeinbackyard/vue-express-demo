@@ -11,7 +11,8 @@
     "axios": "^0.21.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.0",
+    "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-eslint": "~4.5.0",
@@ -25,6 +26,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "prettier": {
+    "printWidth": 100,
     "trailingComma": "none",
     "semi": true,
     "singleQuote": false,

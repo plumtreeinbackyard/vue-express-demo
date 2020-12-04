@@ -51,6 +51,7 @@ form {
   margin: 2em auto 5em;
 }
 .list-unstyled {
+  max-width: 800px;
   margin: 1em auto !important;
 }
 img {

@@ -1,13 +1,13 @@
 <template>
   <div class="main">
     <h1>Product detail</h1>
-    <form @submit.prevent="addProductToCart({id, quantity})">
+    <form @submit.prevent="addToCart()">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-5">
             <img src="https://dummyimage.com/300x200/d9d2d9/736b73.jpg" />
           </div>
-          <div class="col-2 ">
+          <div class="col-3 text-left">
             <p>
               {{ product.title }}
             </p>
@@ -28,20 +28,16 @@
             </div>
           </div>
           <div class="col-2">
-            <button
-              :disabled="!isInventoryGood"
-              type="submit"
-              class="btn btn-primary"
-            >
+            <button :disabled="!isInventoryGood" type="submit" class="btn btn-primary">
               Add to cart
             </button>
-            <p v-if="!isInventoryGood">
-              This product's inventory is lower than the quantity you required.
-            </p>
           </div>
         </div>
       </div>
     </form>
+    <p v-if="!isInventoryGood">
+      This product's inventory is lower than the quantity you required.
+    </p>
   </div>
 </template>
 
@@ -58,15 +54,21 @@ export default {
   }),
   computed: {
     isInventoryGood() {
-      return this.product.inventory > this.quantity;
+      return parseInt(this.product.inventory, 10) >= this.quantity;
     }
   },
-  methods: mapActions("cart", ["addProductToCart"]),
-  mounted() {
-    this.product = this.$store.getters["products/getOneProduct"](this.id);
+  methods: {
+    ...mapActions("cart", ["addProductToCart"]),
+    addToCart() {
+      this.addProductToCart({ id: this.id, quantity: this.quantity });
+      this.quantity = 0;
+    }
   },
   created() {
     this.id = this.$route.params.id;
+    console.log(`id: ${this.id}`);
+    this.product = this.$store.getters["products/getOneProduct"](this.id);
+    console.log(`this product: ${JSON.stringify(this.product)}`);
   }
 };
 </script>

@@ -3,8 +3,8 @@ const db = require('./connection');
 
 const schema = Joi.object().keys({
   title: Joi.string().required(),
-  price: Joi.string().required(),
-  inventory: Joi.string().required(),
+  price: Joi.number().required(),
+  inventory: Joi.number().required(),
 });
 
 const products = db.get('products');

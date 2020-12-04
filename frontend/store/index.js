@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 import cart from "./modules/cart";
 import products from "./modules/products";
 
@@ -12,5 +13,6 @@ export default new Vuex.Store({
     cart,
     products
   },
-  strict: debug
+  strict: debug,
+  plugins: [createPersistedState()]
 });

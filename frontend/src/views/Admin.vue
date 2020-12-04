@@ -59,7 +59,7 @@
         </div>
       </div>
     </form>
-
+    <hr />
     <div class="product-table">
       <h1>Product list</h1>
       <table class="datatable display table table-striped">
@@ -72,11 +72,7 @@
         </thead>
 
         <tbody>
-          <tr
-            v-for="(product, index) in products"
-            :key="index"
-            style="cursor: pointer"
-          >
+          <tr v-for="(product, index) in products" :key="index" style="cursor: pointer">
             <td>{{ product.title }}</td>
             <td>${{ product.price }}</td>
             <td>{{ product.inventory }}</td>
@@ -135,7 +131,7 @@ export default {
             price: "",
             inventory: ""
           };
-          alert("One product has been saved.");
+          alert("One product has been added to database.");
         })
         .catch(error => {
           console.log(error);
@@ -148,10 +144,9 @@ export default {
 
 <style>
 form,
-.product-table,
-.list-unstyled {
+.product-table {
   max-width: 800px;
-  margin: 2em auto 5em;
+  margin: 2em auto;
 }
 
 img {

@@ -11,14 +11,6 @@ const state = () => ({
 const getters = {
   cartProducts: (state, getters, rootState) => state.items.map(({ id, quantity }) => {
     const product = rootState.products.all.find(product => product._id === id);
-    console.log(
-      `cart product: ${JSON.stringify({
-        id,
-        title: product.title,
-        price: product.price,
-        quantity
-      })}`
-    );
     return {
       id,
       title: product.title,
@@ -26,33 +18,45 @@ const getters = {
       quantity
     };
   }),
-  cartTotalPrice: (state, getters) => getters.cartProducts.reduce(
-    (total, product) => total + product.price * product.quantity,
-    0
-  )
+  cartTotalPrice: (state, getters) => getters.cartProducts.reduce((total, product) => total
+    + product.price * product.quantity, 0)
 };
 
 // actions
 const actions = {
-  checkout({ commit, state }, products) {
-    const savedCartItems = [...state.items];
+  checkout({ commit }, products) {
     commit("setCheckoutStatus", null);
     // empty cart
     commit("setCartItems", { items: [] });
     shop.buyProducts(
       products,
       () => {
-        commit("setCheckoutStatus", "successful");
+        commit("setCheckoutStatus", true);
         // update product inventory in database
         shop.updateInventoryInDB(products);
-      },
-      () => {
-        commit("setCheckoutStatus", "failed");
-        // rollback to the cart saved before sending the request
-        commit("setCartItems", { items: savedCartItems });
       }
     );
   },
+  // for simulate random checkout failure.
+  // checkout({ commit, state }, products) {
+  //   const savedCartItems = [...state.items];
+  //   commit("setCheckoutStatus", null);
+  //   // empty cart
+  //   commit("setCartItems", { items: [] });
+  //   shop.buyProducts(
+  //     products,
+  //     () => {
+  //       commit("setCheckoutStatus", "successful");
+  //       // update product inventory in database
+  //       shop.updateInventoryInDB(products);
+  //     },
+  //     () => {
+  //       commit("setCheckoutStatus", "failed");
+  //       // rollback to the cart saved before sending the request
+  //       commit("setCartItems", { items: savedCartItems });
+  //     }
+  //   );
+  // },
 
   addProductToCart({ state, commit }, { id, quantity }) {
     console.log(`id to be passed: ${id}`);
@@ -78,7 +82,8 @@ const mutations = {
 
   incrementItemQuantity(state, { id, quantity }) {
     const cartItem = state.items.find(item => item.id === id);
-    cartItem.quantity += quantity;
+    cartItem.quantity = (parseInt(cartItem.quantity, 10) + parseInt(quantity, 10)).toString();
+    // cartItem.quantity += quantity;
   },
 
   setCartItems(state, { items }) {
