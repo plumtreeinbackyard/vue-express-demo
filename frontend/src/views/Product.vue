@@ -1,20 +1,23 @@
 <template>
   <div class="main">
     <h1>Product detail</h1>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-6">
+          <img src="/img/300x200.jpg" class="img-fluid" />
+        </div>
+        <div class="col-6 text-left">
+          <p>{{ product.title }}</p>
+          <p>${{ product.price }}</p>
+          <p>Inventory: {{ product.inventory }}</p>
+        </div>
+      </div>
+    </div>
+
     <form @submit.prevent="addToCart()">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-5">
-            <img src="https://dummyimage.com/300x200/d9d2d9/736b73.jpg" />
-          </div>
-          <div class="col-3 text-left">
-            <p>
-              {{ product.title }}
-            </p>
-            <p>${{ product.price }}</p>
-            <p>Inventory: {{ product.inventory }}</p>
-          </div>
-          <div class="col-2">
+      <div class="container mt-5">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-3">
             <div class="form-group">
               <label for="quantity">Quantity</label>
               <input
@@ -27,7 +30,7 @@
               />
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-4 text-left">
             <button :disabled="!isInventoryGood" type="submit" class="btn btn-primary">
               Add to cart
             </button>
@@ -60,15 +63,17 @@ export default {
   methods: {
     ...mapActions("cart", ["addProductToCart"]),
     addToCart() {
-      this.addProductToCart({ id: this.id, quantity: this.quantity });
-      this.quantity = 0;
+      if (this.quantity) {
+        this.addProductToCart({ id: this.id, quantity: this.quantity }).then(() => setTimeout(() => alert("Added to cart."), 500));
+        this.quantity = 0;
+      } else {
+        alert("Quantity should be greater than 0.");
+      }
     }
   },
   created() {
     this.id = this.$route.params.id;
-    console.log(`id: ${this.id}`);
     this.product = this.$store.getters["products/getOneProduct"](this.id);
-    console.log(`this product: ${JSON.stringify(this.product)}`);
   }
 };
 </script>

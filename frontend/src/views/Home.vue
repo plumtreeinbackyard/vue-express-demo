@@ -6,10 +6,10 @@
         <div class="container">
           <router-link :to="{ name: 'Product', params: { id: product._id } }">
             <div class="row align-items-center">
-              <div class="col-4">
-                <img src="https://dummyimage.com/300x200/d9d2d9/736b73.jpg" />
+              <div class="col-6">
+                <img src="/img/300x200.jpg" class="img-fluid" />
               </div>
-              <div class="col-8 ">
+              <div class="col-6">
                 <p>
                   {{ product.title }}
                 </p>
@@ -40,22 +40,3 @@ export default {
   }
 };
 </script>
-
-<style>
-h1 {
-  font-size: 2rem;
-  margin-bottom: 2em;
-}
-form {
-  max-width: 800px;
-  margin: 2em auto 5em;
-}
-.list-unstyled {
-  max-width: 800px;
-  margin: 1em auto !important;
-}
-img {
-  max-width: 300px;
-  height: auto;
-}
-</style>
