@@ -27,7 +27,7 @@ export default {
       cb();
     }, 100);
   },
-
+  // for simulate random checkout failure.
   // buyProducts(products, cb, errorCb) {
   //   setTimeout(() => {
   //     simulate random checkout failure.

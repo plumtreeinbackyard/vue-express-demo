@@ -24,6 +24,13 @@ app.get('/getproduct/::id', (req, res) => {
   });
 });
 
+app.get('/editproduct/::id', (req, res) => {
+  var _id = req.params.id;
+  products.editProduct(_id).then((product) => {
+    res.json(product);
+  });
+});
+
 app.post('/products', (req, res) => {
   products
     .create(req.body)
@@ -37,10 +44,22 @@ app.post('/products', (req, res) => {
 });
 
 app.post('/updateinventory', (req, res) => {
-  var cartProducts = req.body;
-  console.log(`updateinventory products: ${JSON.stringify(cartProducts)}`);
+  var cartProducts = req.body; 
   products
     .updateProducts(cartProducts)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.status(500);
+      res.json(error);
+    });
+});
+
+app.post('/editproduct', (req, res) => {
+  var product = req.body;  
+  products
+    .updateOneProduct(product)
     .then((result) => {
       res.json(result);
     })

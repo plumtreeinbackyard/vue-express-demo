@@ -17,26 +17,32 @@ function getProduct(id) {
   return products.findOne({ _id: id });
 }
 // products contains two properties: id and quantity.
-async function updateProducts(cartProducts) {
-  // console.log(`products: ${JSON.stringify(cartProducts)}`);
-  for (var i = 0; i < cartProducts.length; i++) {
-    // console.log(`product: ${JSON.stringify(cartProducts[i])}`);
-    var item = await getProduct(cartProducts[i].id);
-    console.log(`item: ${JSON.stringify(item)}`);
-
-    console.log(`item.inventory: ${parseInt(item.inventory)}`);
-    console.log(`item.quantity: ${parseInt(cartProducts[i].quantity)}`);
+async function updateProducts(cartProducts) { 
+  for (var i = 0; i < cartProducts.length; i++) {    
+    var item = await getProduct(cartProducts[i].id);   
     var newInventory =
-      parseInt(item.inventory) - parseInt(cartProducts[i].quantity); 
-    console.log(`newInventory: ${newInventory}`);
+      parseInt(item.inventory) - parseInt(cartProducts[i].quantity);   
     try{
         products.findOneAndUpdate(
           { _id: item._id },
           { $set: { inventory: newInventory }}
-        );
+      );
+      return Promise.resolve("Products updated.");
     } catch(error){
       return Promise.reject(error);
     }
+  }
+}
+
+async function updateOneProduct(product) {   
+  try{
+    products.findOneAndUpdate(
+      { _id: product._id },
+      { $set: { price: product.price, inventory: product.inventory }}
+    );
+    return Promise.resolve("Product updated.");
+  } catch(error){
+    return Promise.reject(error);
   }
 }
 
@@ -55,4 +61,5 @@ module.exports = {
   getProduct,
   getAll,
   updateProducts,
+  updateOneProduct
 };

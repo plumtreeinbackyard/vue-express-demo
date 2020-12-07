@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Admin from "../views/Admin.vue";
 import Product from "../views/Product.vue";
 import Cart from "../views/Cart.vue";
+import Edit from "../views/Edit.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
     path: "/product/:id",
     name: "Product",
     component: Product
+  },
+  {
+    path: "/edit/:id",
+    name: "Edit",
+    component: Edit
   },
   {
     path: "/cart",

@@ -18,8 +18,11 @@ const getters = {
       quantity
     };
   }),
-  cartTotalPrice: (state, getters) => getters.cartProducts.reduce((total, product) => total
-    + product.price * product.quantity, 0)
+  cartTotalPrice: (state, getters) => {
+    const number = getters.cartProducts.reduce((total, product) => total
+      + product.price * product.quantity, 0);
+    return Math.round(number * 100) / 100;
+  }
 };
 
 // actions

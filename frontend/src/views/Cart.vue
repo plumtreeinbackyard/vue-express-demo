@@ -19,7 +19,7 @@
         </div>
       </div>
       <hr />
-      <li v-for="product in products" :key="product._id">
+      <li v-for="(product, index) in products" :key="index">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-4">
@@ -39,7 +39,7 @@
       <hr />
       <div class="container">
         <div class="row justify-content-end">
-          <div class="col-3 text-right">Total price:</div>
+          <div class="col-2">Total price:</div>
           <div class="col-3">${{ total }}</div>
         </div>
       </div>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Cart",
@@ -69,7 +69,9 @@ export default {
   },
   methods: {
     checkout(products) {
-      this.$store.dispatch("cart/checkout", products).then(() => setTimeout(() => alert("Checkout successful."), 500));
+      this.$store
+        .dispatch("cart/checkout", products)
+        .then(() => setTimeout(() => alert("Checkout successful."), 500));
     }
   }
 };
