@@ -5,7 +5,7 @@
       Your cart is empty, add some products to cart.
     </p>
 
-    <div v-show="!checkoutStatus">
+    <div v-show="products.length && !checkoutStatus">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-4"></div>
@@ -30,9 +30,27 @@
               <p>${{ product.price }}</p>
             </div>
             <div class="col-2">
-              {{ product.quantity }}
+              <div class="form-group">
+                <input
+                  v-model="quantities[index]"
+                  type="number"
+                  min="1"
+                  class="form-control"
+                  @input="changeQuantity(product.id, quantities[index])"
+                />
+              </div>
             </div>
-            <div class="col-3">${{ product.price * product.quantity }}</div>
+            <div class="col-3">
+              ${{ Math.round(product.price * quantities[index] * 100) / 100 }}
+              <p>
+                <a
+                  href="javascript:void(0)"
+                  @click="removeItem(product.id)"
+                  style="color: blue; cursor: pointer;"
+                  >Remove</a
+                >
+              </p>
+            </div>
           </div>
         </div>
       </li>
@@ -58,6 +76,9 @@ import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Cart",
+  data: () => ({
+    quantities: []
+  }),
   computed: {
     ...mapState({
       checkoutStatus: state => state.cart.checkoutStatus
@@ -68,11 +89,22 @@ export default {
     })
   },
   methods: {
+    changeQuantity(id, quantity) {
+      this.$store.dispatch("cart/changeQuantity", { id, quantity });
+    },
     checkout(products) {
       this.$store
         .dispatch("cart/checkout", products)
         .then(() => setTimeout(() => alert("Checkout successful."), 500));
+    },
+    removeItem(id) {
+      this.$store.dispatch("cart/removeItem", { id });
+      // reload page to refresh products quantity
+      window.location.reload();
     }
+  },
+  created() {
+    this.products.forEach(product => this.quantities.push(product.quantity));
   }
 };
 </script>

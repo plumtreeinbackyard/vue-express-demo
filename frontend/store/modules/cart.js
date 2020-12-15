@@ -71,6 +71,14 @@ const actions = {
     }
     // remove item quantity from stock
     commit("products/decrementProductInventory", { id, quantity }, { root: true });
+  },
+
+  changeQuantity({ commit }, { id, quantity }) {
+    commit("changeItemQuantity", { id, quantity });
+  },
+
+  removeItem({ commit }, { id }) {
+    commit("removeCartItem", { id });
   }
 };
 
@@ -83,6 +91,15 @@ const mutations = {
   incrementItemQuantity(state, { id, quantity }) {
     const cartItem = state.items.find(item => item.id === id);
     cartItem.quantity = (parseInt(cartItem.quantity, 10) + parseInt(quantity, 10)).toString();
+  },
+
+  changeItemQuantity(state, { id, quantity }) {
+    const cartItem = state.items.find(item => item.id === id);
+    cartItem.quantity = parseInt(quantity, 10);
+  },
+
+  removeCartItem(state, { id }) {
+    state.items = state.items.filter(item => item.id !== id);
   },
 
   setCartItems(state, { items }) {
