@@ -23,12 +23,13 @@ const actions = {
 const mutations = {
   setProducts(state, products) {
     state.all = products;
-  },
-
-  decrementProductInventory(state, { id, quantity }) {
-    const product = state.all.find(product => product._id === id);
-    product.inventory -= quantity;
   }
+  // ,
+
+  // decrementProductInventory(state, { id, quantity }) {
+  //   const product = state.all.find(product => product._id === id);
+  //   product.inventory = parseInt(product.inventory, 10) - parseInt(quantity, 10);
+  // }
 };
 
 export default {

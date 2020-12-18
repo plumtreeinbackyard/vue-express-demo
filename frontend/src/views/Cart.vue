@@ -4,70 +4,75 @@
     <p v-show="!products.length">
       Your cart is empty, add some products to cart.
     </p>
-
-    <div v-show="products.length && !checkoutStatus">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-4"></div>
-          <div class="col-3">Product</div>
-          <div class="col-2">
-            Quantity
-          </div>
-          <div class="col-3">
-            Total price
-          </div>
-        </div>
-      </div>
-      <hr />
-      <li v-for="(product, index) in products" :key="index">
+    <form @submit.prevent="checkout()">
+      <div v-show="products.length && !checkoutStatus">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-4">
-              <img src="/img/300x200.jpg" class="img-fluid" />
-            </div>
-            <div class="col-3">
-              <p>{{ product.title }}</p>
-              <p>${{ product.price }}</p>
-            </div>
+            <div class="col-4"></div>
+            <div class="col-3">Product</div>
             <div class="col-2">
-              <div class="form-group">
-                <input
-                  v-model="quantities[index]"
-                  type="number"
-                  min="1"
-                  class="form-control"
-                  @input="changeQuantity(product.id, quantities[index])"
-                />
-              </div>
+              Quantity
             </div>
             <div class="col-3">
-              ${{ Math.round(product.price * quantities[index] * 100) / 100 }}
-              <p>
-                <a
-                  href="javascript:void(0)"
-                  @click="removeItem(product.id)"
-                  style="color: blue; cursor: pointer;"
-                  >Remove</a
-                >
-              </p>
+              Total price
             </div>
           </div>
         </div>
-      </li>
-      <hr />
-      <div class="container">
-        <div class="row justify-content-end">
-          <div class="col-2">Total price:</div>
-          <div class="col-3">${{ total }}</div>
+        <hr />
+        <li v-for="(product, index) in products" :key="index">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img src="/img/300x200.jpg" class="img-fluid" />
+              </div>
+              <div class="col-3">
+                <p>{{ product.title }}</p>
+                <p>${{ product.price }}</p>
+                <p>Inventory: {{ product.inventory }}</p>
+              </div>
+              <div class="col-2">
+                <div class="form-group">
+                  <input
+                    v-model="quantities[index]"
+                    type="number"
+                    min="1"
+                    class="form-control"
+                    @input="changeQuantity(index, product.inventory, product.id, quantities[index])"
+                  />
+                </div>
+                <p v-if="parseInt(product.inventory, 10) < quantities[index]" style="color:red;">
+                  Low inventory
+                </p>
+              </div>
+              <div class="col-3">
+                ${{ Math.round(product.price * quantities[index] * 100) / 100 }}
+                <p>
+                  <a
+                    href="javascript:void(0)"
+                    @click="removeItem(product.id)"
+                    style="color: blue; cursor: pointer;"
+                    >Remove</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <hr />
+        <div class="container">
+          <div class="row justify-content-end">
+            <div class="col-2">Total price:</div>
+            <div class="col-3">${{ total }}</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <p class="mt-5 mb-5">
-      <button :disabled="!products.length" @click="checkout(products)" class="btn btn-primary">
-        Checkout
-      </button>
-    </p>
+      <p class="mt-5 mb-5">
+        <button :disabled="flag" type="submit" class="btn btn-primary">
+          Checkout
+        </button>
+      </p>
+    </form>
   </div>
 </template>
 
@@ -77,7 +82,9 @@ import { mapState, mapGetters } from "vuex";
 export default {
   name: "Cart",
   data: () => ({
-    quantities: []
+    quantities: [],
+    inventoryFlag: [],
+    flag: false
   }),
   computed: {
     ...mapState({
@@ -89,12 +96,15 @@ export default {
     })
   },
   methods: {
-    changeQuantity(id, quantity) {
+    changeQuantity(index, inventory, id, quantity) {
       this.$store.dispatch("cart/changeQuantity", { id, quantity });
+      // if item inventory is lower than required item quantity then flag 1 for item inventory state
+      this.inventoryFlag[index] = parseInt(inventory, 10) < quantity ? 1 : 0;
+      this.flag = this.inventoryFlag.reduce((total, flag) => total + flag, 0) > 0;
     },
-    checkout(products) {
+    checkout() {
       this.$store
-        .dispatch("cart/checkout", products)
+        .dispatch("cart/checkout", this.products)
         .then(() => setTimeout(() => alert("Checkout successful."), 500));
     },
     removeItem(id) {
@@ -104,7 +114,10 @@ export default {
     }
   },
   created() {
-    this.products.forEach(product => this.quantities.push(product.quantity));
+    this.products.forEach((product, index) => {
+      this.quantities.push(product.quantity);
+      this.inventoryFlag[index] = parseInt(product.inventory, 10) < this.quantities[index] ? 1 : 0;
+    });
   }
 };
 </script>

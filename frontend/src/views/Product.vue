@@ -64,7 +64,8 @@ export default {
     ...mapActions("cart", ["addProductToCart"]),
     addToCart() {
       if (this.quantity) {
-        this.addProductToCart({ id: this.id, quantity: this.quantity }).then(() => setTimeout(() => alert("Added to cart."), 500));
+        this.addProductToCart({ id: this.id, quantity: this.quantity })
+          .then(() => setTimeout(() => alert("Added to cart."), 500));
         this.quantity = 0;
       } else {
         alert("Quantity should be greater than 0.");

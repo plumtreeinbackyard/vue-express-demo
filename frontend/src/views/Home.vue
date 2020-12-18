@@ -2,7 +2,7 @@
   <div class="main">
     <h1>Product list</h1>
     <div class="list-unstyled" v-for="product in products" :key="product._id">
-      <li>
+      <li v-if="product.inventory > 0">
         <div class="container">
           <router-link :to="{ name: 'Product', params: { id: product._id } }">
             <div class="row align-items-center">

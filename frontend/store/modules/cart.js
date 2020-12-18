@@ -15,6 +15,7 @@ const getters = {
       id,
       title: product.title,
       price: product.price,
+      inventory: product.inventory,
       quantity
     };
   }),
@@ -70,7 +71,7 @@ const actions = {
       commit("incrementItemQuantity", { id, quantity });
     }
     // remove item quantity from stock
-    commit("products/decrementProductInventory", { id, quantity }, { root: true });
+    // commit("products/decrementProductInventory", { id, quantity }, { root: true });
   },
 
   changeQuantity({ commit }, { id, quantity }) {
@@ -90,7 +91,7 @@ const mutations = {
 
   incrementItemQuantity(state, { id, quantity }) {
     const cartItem = state.items.find(item => item.id === id);
-    cartItem.quantity = (parseInt(cartItem.quantity, 10) + parseInt(quantity, 10)).toString();
+    cartItem.quantity = parseInt(cartItem.quantity, 10) + parseInt(quantity, 10);
   },
 
   changeItemQuantity(state, { id, quantity }) {
