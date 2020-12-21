@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row justify-content-between">
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="width: 100%">
-            <router-link to="/" class="navbar-brand">Vue/Express Demo</router-link>
+            <router-link to="/" class="navbar-brand">Shopping Site Demo</router-link>
             <button
               class="navbar-toggler"
               type="button"

@@ -14,7 +14,7 @@
               Quantity
             </div>
             <div class="col-3">
-              Total price
+              Total
             </div>
           </div>
         </div>
@@ -61,14 +61,14 @@
         <hr />
         <div class="container">
           <div class="row justify-content-end">
-            <div class="col-2">Total price:</div>
+            <div class="col-2">Total:</div>
             <div class="col-3">${{ total }}</div>
           </div>
         </div>
       </div>
 
       <p class="mt-5 mb-5">
-        <button :disabled="flag" type="submit" class="btn btn-primary">
+        <button :disabled="!products.length || flag" type="submit" class="btn btn-primary">
           Checkout
         </button>
       </p>
