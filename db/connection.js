@@ -1,5 +1,17 @@
 const monk = require('monk');
-const connectionString = process.env.MONGODB_URI || 'localhost/vueExpressDemo';
+const secrets = require('../secrets');
+var connectionString = 'localhost/vueExpressDemo';
+
+if (process.env.NODE_ENV == 'production') {
+  connectionString = secrets
+    .getSecret('/vue-express-demo/mongodburi')
+    .then((result) => {
+      console.log(`mongodb uri: ${result}`);
+    });
+} else {
+  console.log(`Local dev environment.`);
+}
+
 const db = monk(connectionString);
- 
+
 module.exports = db;
