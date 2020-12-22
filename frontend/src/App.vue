@@ -16,7 +16,12 @@
             >
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div
+              class="collapse navbar-collapse"
+              id="navbarTogglerDemo01"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+            >
               <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                   <router-link to="/" class="nav-link">Home</router-link>
