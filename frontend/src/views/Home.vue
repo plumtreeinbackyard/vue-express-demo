@@ -7,7 +7,7 @@
           <router-link :to="{ name: 'Product', params: { id: product._id } }">
             <div class="row align-items-center">
               <div class="col-6">
-                <img src="/img/300x200.jpg" class="img-fluid" />
+                <img src="@/assets/img/300x200.jpg" class="img-fluid" />
               </div>
               <div class="col-6">
                 <p>

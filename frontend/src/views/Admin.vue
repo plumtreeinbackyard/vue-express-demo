@@ -81,7 +81,7 @@
             <td>
               <router-link :to="{ name: 'Edit', params: { id: product._id } }">
                 <img
-                  src="/img/outline_edit_black_18dp.png"
+                  src="@/assets/img/outline_edit_black_18dp.png"
                   data-toggle="tooltip"
                   data-placement="bottom"
                   title="Edit product"
