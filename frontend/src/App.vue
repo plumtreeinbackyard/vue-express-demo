@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div class="bg-primary">
+    <div class="bg-dark">
       <div class="container">
         <div class="row justify-content-between">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="width: 100%">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 100%">
             <router-link to="/" class="navbar-brand">Shopping Site Demo</router-link>
             <button
               class="navbar-toggler"
@@ -41,3 +41,7 @@
     <router-view />
   </div>
 </template>
+
+<style>
+@import "./assets/css/style.css";
+</style>

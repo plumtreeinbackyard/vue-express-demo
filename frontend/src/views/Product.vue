@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="col-4 text-left">
-            <button :disabled="!isInventoryGood" type="submit" class="btn btn-primary">
+            <button :disabled="!isInventoryGood" type="submit" class="btn btn-dark">
               Add to cart
             </button>
           </div>

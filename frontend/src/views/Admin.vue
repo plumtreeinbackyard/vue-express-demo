@@ -55,7 +55,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-primary mt-3">Add product</button>
+            <button type="submit" class="btn btn-dark mt-3">Add product</button>
           </div>
         </div>
       </div>

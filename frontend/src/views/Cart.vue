@@ -68,7 +68,7 @@
       </div>
 
       <p class="mt-5 mb-5">
-        <button :disabled="!products.length || flag" type="submit" class="btn btn-primary">
+        <button :disabled="!products.length || flag" type="submit" class="btn btn-dark">
           Checkout
         </button>
       </p>
