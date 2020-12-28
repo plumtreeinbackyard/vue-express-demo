@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && Xcopy .\\dist ..\\dist /E /H /C /I /Y",
     "lint": "vue-cli-service lint",
-    "scss": "node-sass --watch .\\src\\assets\\scss -o .\\src\\assets\\css"
+    "scss": "node-sass --watch .\\src\\assets\\scss -o .\\src\\assets\\css",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -19,10 +20,13 @@
     "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "devDependencies": {
+    "@vue/babel-preset-app": "^4.5.9",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "^4.5.9",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
+    "@vue/test-utils": "^1.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
@@ -113,5 +117,16 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.js$": "babel-jest"
+    },
+    "mapCoverage": true
   }
 }

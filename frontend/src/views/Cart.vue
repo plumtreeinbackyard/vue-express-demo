@@ -98,9 +98,7 @@ export default {
   methods: {
     changeQuantity(index, inventory, id, quantity) {
       this.$store.dispatch("cart/changeQuantity", { id, quantity });
-      // if item inventory is lower than required item quantity then flag 1 for item inventory state
-      this.inventoryFlag[index] = parseInt(inventory, 10) < quantity ? 1 : 0;
-      this.flag = this.inventoryFlag.reduce((total, flag) => total + flag, 0) > 0;
+      this.checkFlag(index, inventory, quantity);
     },
     checkout() {
       this.$store
@@ -111,12 +109,17 @@ export default {
       this.$store.dispatch("cart/removeItem", { id });
       // reload page to refresh products quantity
       window.location.reload();
+    },
+    checkFlag(index, inventory, quantity) {
+      // if item inventory is lower than required item quantity then flag 1 for item inventory state
+      this.inventoryFlag[index] = parseInt(inventory, 10) < quantity ? 1 : 0;
+      this.flag = this.inventoryFlag.reduce((total, flag) => total + flag, 0) > 0;
     }
   },
   created() {
     this.products.forEach((product, index) => {
       this.quantities.push(product.quantity);
-      this.inventoryFlag[index] = parseInt(product.inventory, 10) < this.quantities[index] ? 1 : 0;
+      this.checkFlag(index, product.inventory, this.quantities[index]);
     });
   }
 };

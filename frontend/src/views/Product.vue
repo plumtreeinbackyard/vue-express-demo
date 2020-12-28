@@ -38,7 +38,7 @@
         </div>
       </div>
     </form>
-    <p v-if="!isInventoryGood">
+    <p v-if="!isInventoryGood" sytle="color:red;">
       This product's inventory is lower than the quantity you required.
     </p>
   </div>
