@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Admin from "../views/Admin.vue";
-import Product from "../views/Product.vue";
-import Cart from "../views/Cart.vue";
-import Edit from "../views/Edit.vue";
+import Home from "../components/Home.vue";
+import Admin from "../components/Admin.vue";
+import Product from "../components/Product.vue";
+import Cart from "../components/Cart.vue";
+import Edit from "../components/Edit.vue";
 
 Vue.use(VueRouter);
 

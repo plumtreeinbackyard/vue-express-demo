@@ -26,8 +26,7 @@ async function updateProducts(cartProducts) {
       products.findOneAndUpdate(
         { _id: item._id },
         { $set: { inventory: newInventory } }
-      );
-      console.log(`${cartProducts[i].id} is updated.`);     
+      );     
     }
     return Promise.resolve('Products updated.');
   } catch (error) {

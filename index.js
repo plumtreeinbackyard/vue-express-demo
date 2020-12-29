@@ -44,8 +44,7 @@ app.post('/products', (req, res) => {
 });
 
 app.post('/updateinventory', (req, res) => {
-  var cartProducts = req.body; 
-  console.log(`cartProducts: ${JSON.stringify(cartProducts)}`);
+  var cartProducts = req.body;  
   products
     .updateProducts(cartProducts)
     .then((result) => {

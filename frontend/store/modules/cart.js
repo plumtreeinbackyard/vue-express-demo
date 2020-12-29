@@ -23,6 +23,11 @@ const getters = {
     const number = getters.cartProducts.reduce((total, product) => total
       + product.price * product.quantity, 0);
     return Math.round(number * 100) / 100;
+  },
+  cartTotalItemNumber: state => {
+    const itemQuantity = state.items.reduce((total, item) => total
+      + parseInt(item.quantity, 10), 0);
+    return Number.isNaN(itemQuantity) ? 0 : itemQuantity;
   }
 };
 
