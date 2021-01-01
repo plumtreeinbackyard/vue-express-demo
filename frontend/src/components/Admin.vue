@@ -118,7 +118,7 @@ export default {
         this.products = response.data;
       })
       .catch(error => {
-        console.log(error);
+        this.error = `Something went wrong with getting products data from database! ${error}`;
       });
   },
   methods: {
@@ -136,8 +136,7 @@ export default {
           alert("One product has been added to database.");
         })
         .catch(error => {
-          console.log(error);
-          this.error = "Something went wrong with saving form data!";
+          this.error = `Something went wrong with saving form data! ${error}`;
         });
     }
   }

@@ -5,9 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && Xcopy .\\dist ..\\dist /E /H /C /I /Y",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "scss": "node-sass --watch .\\src\\assets\\scss -o .\\src\\assets\\css",
-    "test": "jest"
+    "scss": "node-sass --watch .\\src\\assets\\scss -o .\\src\\assets\\css"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -23,25 +23,19 @@
     "@vue/babel-preset-app": "^4.5.9",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-unit-jest": "^4.5.9",
+    "@vue/cli-plugin-unit-mocha": "^4.5.9",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
     "@vue/test-utils": "^1.1.2",
+    "chai": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
     "node-sass": "^5.0.0",
+    "sass": "^1.32.0",
+    "sass-loader": "^10.1.0",
     "vue-template-compiler": "^2.6.11"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "trailingComma": "none",
-    "semi": true,
-    "singleQuote": false,
-    "endOfLine": "crlf",
-    "proseWrap": "always",
-    "embeddedLanguageFormatting": "auto"
   },
   "eslintConfig": {
     "root": true,
@@ -102,22 +96,33 @@
         "error",
         "beside"
       ]
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "mocha": true
+        }
+      }
+    ]
+  },
+  "prettier": {
+    "printWidth": 100,
+    "trailingComma": "none",
+    "semi": true,
+    "singleQuote": false,
+    "endOfLine": "crlf",
+    "proseWrap": "always",
+    "embeddedLanguageFormatting": "auto"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
   ],
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
-  },
   "jest": {
     "moduleFileExtensions": [
       "js",
@@ -128,5 +133,14 @@
       "^.+\\.js$": "babel-jest"
     },
     "mapCoverage": true
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
   }
 }

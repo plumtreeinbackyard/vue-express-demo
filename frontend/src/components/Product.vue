@@ -50,7 +50,6 @@ import { mapActions } from "vuex";
 export default {
   name: "Product",
   data: () => ({
-    error: "",
     id: "",
     quantity: 0,
     product: {}

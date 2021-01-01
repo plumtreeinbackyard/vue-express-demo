@@ -84,8 +84,7 @@ export default {
           }, 500)
         )
         .catch(error => {
-          console.log(error);
-          this.error = "Something went wrong with editing product!";
+          this.error = `Something went wrong with editing product! ${error}`;
         });
     }
   },
@@ -98,7 +97,7 @@ export default {
         this.product = response.data;
       })
       .catch(error => {
-        console.log(error);
+        this.error = `Something went wrong with getting product data from database! ${error}`;
       });
   }
 };

@@ -27,9 +27,6 @@ import { mapState } from "vuex";
 
 export default {
   name: "Home",
-  data: () => ({
-    error: ""
-  }),
   computed: mapState({
     products: state => state.products.all
   }),
