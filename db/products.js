@@ -16,6 +16,7 @@ function getAll() {
 function getProduct(id) {
   return products.findOne({ _id: id });
 }
+
 // products contains two properties: id and quantity.
 async function updateProducts(cartProducts) {
   try {
@@ -56,10 +57,22 @@ async function create(product) {
   }
 }
 
+function deleteProduct(id) {
+  try {
+    products.remove(
+      { _id: id }
+    );
+    return Promise.resolve('Product deleted.');
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 module.exports = {
   create,
   getProduct,
   getAll,
   updateProducts,
   updateOneProduct,
+  deleteProduct
 };

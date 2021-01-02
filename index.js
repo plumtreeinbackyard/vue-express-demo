@@ -31,11 +31,23 @@ app.get('/editproduct/::id', (req, res) => {
   });
 });
 
-app.post('/products', (req, res) => {
+app.post('/addproduct', (req, res) => {
   products
     .create(req.body)
     .then((product) => {
       res.json(product);
+    })
+    .catch((error) => {
+      res.status(500);
+      res.json(error);
+    });
+});
+
+app.post('/deleteproduct', (req, res) => {
+  products
+    .deleteProduct(req.body.id)
+    .then((result) => {
+      res.json(result);
     })
     .catch((error) => {
       res.status(500);

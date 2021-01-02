@@ -1,6 +1,12 @@
 <template>
   <div class="main">
     <h1>Product list</h1>
+    <div v-if="isProductsEmpty" class="alert alert-dismissible alert-warning">
+      <button type="button" class="close" data-dismiss="alert">
+        &times;
+      </button>
+      <p class="mb-0">{{ msg }}</p>
+    </div>
     <div class="container" v-for="product in products" :key="product._id">
       <div class="card mb-3" v-if="product.inventory > 0">
         <router-link :to="{ name: 'Product', params: { id: product._id } }">
@@ -27,9 +33,17 @@ import { mapState } from "vuex";
 
 export default {
   name: "Home",
-  computed: mapState({
-    products: state => state.products.all
+  data: () => ({
+    msg: "No products, please go to Admin page and add products to database."
   }),
+  computed: {
+    ...mapState({
+      products: state => state.products.all
+    }),
+    isProductsEmpty() {
+      return this.products.length === 0;
+    }
+  },
   created() {
     this.$store.dispatch("products/getAllProducts");
   }

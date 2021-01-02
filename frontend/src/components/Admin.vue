@@ -74,7 +74,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="product in products" :key="product._id" style="cursor: pointer">
+          <tr v-for="(product, index) in products" :key="index" style="cursor: pointer">
             <td>{{ product.title }}</td>
             <td>${{ product.price }}</td>
             <td>{{ product.inventory }}</td>
@@ -87,6 +87,13 @@
                   title="Edit product"
                 />
               </router-link>
+              <img
+                src="@/assets/img/baseline_delete_outline_black_24dp.png"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Delete product"
+                @click="deleteProduct(index, product._id)"
+              />
             </td>
           </tr>
         </tbody>
@@ -98,7 +105,9 @@
 <script>
 import axios from "axios";
 
-const API_URL = `${window.location.protocol}//${window.location.host}/products`;
+const GET_PRODUCTS_API_URL = `${window.location.protocol}//${window.location.host}/products`;
+const ADD_PRODUCT_API_URL = `${window.location.protocol}//${window.location.host}/addproduct`;
+const DELETE_PRODUCT_API_URL = `${window.location.protocol}//${window.location.host}/deleteproduct`;
 
 export default {
   name: "Admin",
@@ -113,7 +122,7 @@ export default {
   }),
   mounted() {
     axios
-      .get(API_URL)
+      .get(GET_PRODUCTS_API_URL)
       .then(response => {
         this.products = response.data;
       })
@@ -124,7 +133,7 @@ export default {
   methods: {
     addProduct() {
       axios
-        .post(API_URL, this.product)
+        .post(ADD_PRODUCT_API_URL, this.product)
         .then(response => {
           this.products.push(response.data);
           this.error = "";
@@ -137,6 +146,14 @@ export default {
         })
         .catch(error => {
           this.error = `Something went wrong with saving form data! ${error}`;
+        });
+    },
+    deleteProduct(index, id) {
+      axios
+        .post(DELETE_PRODUCT_API_URL, { id })
+        .then(() => this.products.splice(index, 1))
+        .catch(error => {
+          this.error = `Something went wrong with deleting product! ${error}`;
         });
     }
   }
