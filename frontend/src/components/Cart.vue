@@ -98,7 +98,7 @@ export default {
     checkout() {
       this.$store
         .dispatch("cart/checkout", this.products)
-        .then(() => setTimeout(() => alert("Checkout successful."), 500));
+        .then(() => setTimeout(() => alert("Checkout successful."), 500)); // eslint-disable-line no-alert
     },
     removeItem(id) {
       this.$store.dispatch("cart/removeItem", { id });

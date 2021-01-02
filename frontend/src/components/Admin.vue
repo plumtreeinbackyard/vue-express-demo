@@ -142,19 +142,23 @@ export default {
             price: "",
             inventory: ""
           };
-          alert("One product has been added to database.");
+          alert("One product has been added to database."); // eslint-disable-line no-alert
         })
         .catch(error => {
           this.error = `Something went wrong with saving form data! ${error}`;
         });
     },
     deleteProduct(index, id) {
-      axios
-        .post(DELETE_PRODUCT_API_URL, { id })
-        .then(() => this.products.splice(index, 1))
-        .catch(error => {
-          this.error = `Something went wrong with deleting product! ${error}`;
-        });
+      // eslint-disable-next-line no-restricted-globals
+      const r = confirm("Are you sure that you need to delete this product?"); // eslint-disable-line no-alert
+      if (r) {
+        axios
+          .post(DELETE_PRODUCT_API_URL, { id })
+          .then(() => this.products.splice(index, 1))
+          .catch(error => {
+            this.error = `Something went wrong with deleting product! ${error}`;
+          });
+      }
     }
   }
 };

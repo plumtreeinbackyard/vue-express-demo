@@ -79,7 +79,7 @@ export default {
         .then(
           () => setTimeout(() => {
             this.error = "";
-            alert("The product has been updated in database!");
+            alert("The product has been updated in database!"); // eslint-disable-line no-alert
             window.location.href = `${window.location.protocol}//${window.location.host}/#/admin`;
           }, 500)
         )

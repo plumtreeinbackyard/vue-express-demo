@@ -64,10 +64,10 @@ export default {
     addToCart() {
       if (this.quantity) {
         this.addProductToCart({ id: this.id, quantity: this.quantity })
-          .then(() => setTimeout(() => alert("Added to cart."), 500));
+          .then(() => setTimeout(() => alert("Added to cart."), 500)); // eslint-disable-line no-alert
         this.quantity = 0;
       } else {
-        alert("Quantity should be greater than 0.");
+        alert("Quantity should be greater than 0."); // eslint-disable-line no-alert
       }
     }
   },
