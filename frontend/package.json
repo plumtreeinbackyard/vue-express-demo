@@ -23,11 +23,10 @@
     "@vue/babel-preset-app": "^4.5.9",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-unit-mocha": "^4.5.9",
+    "@vue/cli-plugin-unit-jest": "^4.5.9",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
     "@vue/test-utils": "^1.1.2",
-    "chai": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
@@ -49,7 +48,7 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {      
+    "rules": {
       "quotes": [
         "error",
         "double",
@@ -106,6 +105,15 @@
         "env": {
           "mocha": true
         }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
       }
     ]
   },
@@ -132,7 +140,8 @@
       ".*\\.(vue)$": "vue-jest",
       "^.+\\.js$": "babel-jest"
     },
-    "mapCoverage": true
+    "mapCoverage": true,
+    "preset": "@vue/cli-plugin-unit-jest/presets/no-babel"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
