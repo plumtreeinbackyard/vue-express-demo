@@ -9,7 +9,7 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static('./dist'));
 
 app.get('/products', (req, res) => {
   products.getAll().then((products) => {
@@ -83,7 +83,7 @@ app.post('/editproduct', (req, res) => {
 
 app.all('*', (_req, res) => {
   try {
-    res.sendFile(__dirname + '/disk/index.html');
+    res.sendFile('./dist/index.html');
   } catch (error) {
     res.json({
       success: false,
