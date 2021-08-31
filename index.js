@@ -84,6 +84,7 @@ app.post('/editproduct', (req, res) => {
 app.all('*', (_req, res) => {
   try {
     res.sendFile(__dirname + '/dist/index.html');
+    console.log(`dir name: ${__dirname}`);
   } catch (error) {
     res.json({
       success: false,
