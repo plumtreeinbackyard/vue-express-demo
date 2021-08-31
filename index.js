@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -9,7 +10,7 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('../app/dist'));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/products', (req, res) => {
   products.getAll().then((products) => {
@@ -81,9 +82,9 @@ app.post('/editproduct', (req, res) => {
     });
 });
 
-app.all('*', (_req, res) => {
+app.all('/', (_req, res) => {
   try {
-    res.sendFile('../app/dist/index.html');  
+    res.sendFile(path.join(__dirname, 'dist/index.html'));  
   } catch (error) {
     res.json({
       success: false,
