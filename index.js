@@ -9,7 +9,7 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/dist/'));
+app.use(express.static(__dirname + '/dist'));
 
 app.get('/products', (req, res) => {
   products.getAll().then((products) => {
