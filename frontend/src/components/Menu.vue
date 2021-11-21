@@ -5,11 +5,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 100%">
           <router-link to="/" class="navbar-brand">Shopping Site Demo
             <br />
-<<<<<<< HEAD
-            <span style="color:#808080;font-size:60%">Coded in Vue 2 and Express.js</span>
-=======
             <span style="color:#808080;font-size:60%;">Coded in Vue 2 and Express.js</span>
->>>>>>> 82f911a6d6dd94ec2509dc0e6154223d7ec8f02b
           </router-link>
           <div class="show-on-small-screen">
             <router-link to="/cart" class="nav-link">
