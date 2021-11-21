@@ -19,3 +19,11 @@ npm run dev
 ```
 npm run start
 ```
+
+## Deploy to Heroku
+```
+heroku login
+git add .
+git commit -am "make it better"
+git push heroku master
+```
