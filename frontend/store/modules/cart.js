@@ -37,36 +37,18 @@ const actions = {
     commit("setCheckoutStatus", null);
     // empty cart
     commit("setCartItems", { items: [] });
-    shop.buyProducts(
-      products,
-      () => {
-        commit("setCheckoutStatus", true);
-        // update product inventory in database
-        shop.updateInventoryInDB(products);
-      }
-    );
-  },
-  // for simulate random checkout failure.
-  // checkout({ commit, state }, products) {
-  //   const savedCartItems = [...state.items];
-  //   commit("setCheckoutStatus", null);
-  //   // empty cart
-  //   commit("setCartItems", { items: [] });
-  //   shop.buyProducts(
-  //     products,
-  //     () => {
-  //       commit("setCheckoutStatus", "successful");
-  //       // update product inventory in database
-  //       shop.updateInventoryInDB(products);
-  //     },
-  //     () => {
-  //       commit("setCheckoutStatus", "failed");
-  //       // rollback to the cart saved before sending the request
-  //       commit("setCartItems", { items: savedCartItems });
-  //     }
-  //   );
-  // },
 
+    setTimeout(() => {
+      commit("setCheckoutStatus", true);
+      // update product inventory in database
+      axios.post(UPDATE_INVENTORY_API_URL, products)
+      .catch(error => {
+        // eslint-disable-next-line
+        console.log(error);
+      });      
+    }, 100);
+  },
+ 
   addProductToCart({ state, commit }, { id, quantity }) {
     commit("setCheckoutStatus", null);
     const cartItem = state.items.find(item => item.id === id);
