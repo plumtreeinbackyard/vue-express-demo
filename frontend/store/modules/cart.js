@@ -1,4 +1,6 @@
-import shop from "../../api/shop";
+import axios from "axios";
+
+const UPDATE_INVENTORY_API_URL = `${window.location.protocol}//${window.location.host}/updateinventory`;
 
 // initial state
 // shape: [{ id, quantity }]
@@ -42,13 +44,13 @@ const actions = {
       commit("setCheckoutStatus", true);
       // update product inventory in database
       axios.post(UPDATE_INVENTORY_API_URL, products)
-      .catch(error => {
+        .catch(error => {
         // eslint-disable-next-line
         console.log(error);
-      });      
+        });
     }, 100);
   },
- 
+
   addProductToCart({ state, commit }, { id, quantity }) {
     commit("setCheckoutStatus", null);
     const cartItem = state.items.find(item => item.id === id);

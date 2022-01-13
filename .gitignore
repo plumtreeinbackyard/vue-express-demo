@@ -104,3 +104,6 @@ typings/
 
 # yaml file
 *.yaml
+
+# frontend dist folder
+frontend/dist/

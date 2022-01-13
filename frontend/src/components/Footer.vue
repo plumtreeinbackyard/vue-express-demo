@@ -1,10 +1,13 @@
 <template>
   <footer>
-    <p>&#169; 2020 - 2021 Janet Wang</p>
+    <p>&#169; 2020 - {{ currentYear }} Janet Wang</p>
   </footer>
 </template>
 <script>
 export default {
-  name: "Footer"
+  name: "Footer",
+  data: () => ({
+    currentYear: new Date().getFullYear()
+  })
 };
 </script>

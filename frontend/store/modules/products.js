@@ -1,8 +1,6 @@
-import shop from "../../api/shop";
 import axios from "axios";
 
 const GET_PRODUCTS_API_URL = `${window.location.protocol}//${window.location.host}/products`;
-const UPDATE_INVENTORY_API_URL = `${window.location.protocol}//${window.location.host}/updateinventory`;
 
 // initial state
 const state = () => ({
@@ -19,13 +17,13 @@ const actions = {
   getAllProducts({ commit }) {
     axios
       .get(GET_PRODUCTS_API_URL)
-      .then(response => {        
-        commit("setProducts", response.data);       
+      .then(response => {
+        commit("setProducts", response.data);
       })
       .catch(error => {
         // eslint-disable-next-line
         console.log(error);
-      });    
+      });
   }
 };
 
